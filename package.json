@@ -4,7 +4,10 @@
   "description": "Template for basing repositories off",
   "main": "src/templateRepository.js",
   "scripts": {
-    "detect-secrets": "docker run --rm -v $(pwd):/code txo-toolbox-team-docker-local.artifactory.swg-devops.com/git-defenders/detect-secrets-hook:latest --baseline .secrets.baseline $(git diff --staged --name-only)",
+    "detect-secrets": "cross-env-shell docker run --rm -v ${INIT_CWD}:/code icr.io/git-defenders/detect-secrets-hook:0.13.1.ibm.56.dss --baseline .secrets.baseline",
+    "detect-secrets:audit": "cross-env-shell docker run -it --rm -v ${INIT_CWD}:/code icr.io/git-defenders/detect-secrets:0.13.1.ibm.56.dss audit --report --fail-on-unaudited --fail-on-live --fail-on-audited-real .secrets.baseline",
+    "detect-secrets:exclude": "cross-env-shell docker run --rm -v ${INIT_CWD}:/code icr.io/git-defenders/detect-secrets:0.13.1.ibm.56.dss scan --update .secrets.baseline --exclude-files",
+    "detect-secrets:update-baseline": "cross-env-shell docker run --rm -v ${INIT_CWD}:/code icr.io/git-defenders/detect-secrets:0.13.1.ibm.56.dss scan --update .secrets.baseline",
     "lint": "eslint --cache --fix",
     "postinstall": "npm run requirements-check",
     "precommit": "npm-run-all lint test detect-secrets",
@@ -27,22 +30,23 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
-    "@types/eslint": "^7.2.10",
+    "@types/eslint": "^7.29.0",
     "@types/eslint-plugin-prettier": "^3.1.0",
     "@types/jest": "^26.0.23",
-    "@types/prettier": "^2.2.3",
+    "@types/prettier": "^2.7.2",
+    "cross-env": "^7.0.3",
     "detect-secrets": "^1.0.6",
-    "eslint": "^7.25.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jest": "^24.7.0",
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "^6.0.0",
     "jest": "^26.6.3",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.2.1",
-    "snyk": "^1.1064.0"
+    "prettier": "^2.8.3",
+    "snyk": "^1.566.0"
   },
   "engines": {
     "node": "v14.16.1"
