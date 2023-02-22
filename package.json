@@ -52,6 +52,6 @@
     "node": "v14.16.1"
   },
   "dependencies": {
-    "semver": "^7.3.6"
+    "semver": "^7.3.8"
   }
 }
