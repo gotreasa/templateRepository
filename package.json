@@ -50,7 +50,6 @@
     "snyk": "^1.1187.0"
   },
   "engines": {
-    "node": "v14.16.1"
-  },
-  "dependencies": {}
+    "node": "v18.16.1"
+  }
 }
